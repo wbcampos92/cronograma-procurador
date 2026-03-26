@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cronograma Procurador Municipal — PGM Foz</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#F5F3EE;--card:#FFFFFF;--card2:#F9F8F5;--border:#E4E1D8;--border2:#D0CCBF;
+  --text:#1A1916;--muted:#7A7769;--faint:#B5B2A5;
+  --dc-bg:#EEEDFE;--dc-b:#AFA9EC;--dc-t:#3C3489;
+  --da-bg:#E1F5EE;--da-b:#5DCAA5;--da-t:#085041;
+  --dpc-bg:#E6F1FB;--dpc-b:#85B7EB;--dpc-t:#0C447C;
+  --dt-bg:#FAEEDA;--dt-b:#EF9F27;--dt-t:#633806;
+  --afo-bg:#FBEAF0;--afo-b:#ED93B1;--afo-t:#72243E;
+  --r:12px;--rs:6px;--font:'Outfit',sans-serif;--mono:'DM Mono',monospace;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#111110;--card:#1C1C1A;--card2:#242422;--border:#2E2E2B;--border2:#3A3A36;
+  --text:#E8E5DC;--muted:#8A8778;--faint:#555248;
+  --dc-bg:#26215C;--dc-b:#534AB7;--dc-t:#CECBF6;
+  --da-bg:#04342C;--da-b:#0F6E56;--da-t:#9FE1CB;
+  --dpc-bg:#042C53;--dpc-b:#185FA5;--dpc-t:#B5D4F4;
+  --dt-bg:#412402;--dt-b:#854F0B;--dt-t:#FAC775;
+  --afo-bg:#4B1528;--afo-b:#993556;--afo-t:#F4C0D1;
+}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:60px}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:24px 24px 18px;position:sticky;top:0;z-index:100}
+.hi{max-width:960px;margin:0 auto}
+.ht{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.tb h1{font-size:19px;font-weight:700;letter-spacing:-.4px}
+.tb p{font-size:11px;color:var(--muted);margin-top:2px;font-family:var(--mono)}
+.stats{display:flex;gap:20px;align-items:center}
+.sbox{text-align:right}
+.sbox .num{font-size:22px;font-weight:700;font-family:var(--mono);line-height:1}
+.sbox .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.hbw{margin-top:14px}
+.bl{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;font-family:var(--mono)}
+.pb{height:6px;background:var(--border);border-radius:99px;overflow:hidden}
+.pf{height:100%;border-radius:99px;background:linear-gradient(90deg,#7F77DD,#1D9E75);transition:width .4s ease}
+.legend{max-width:960px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--border);background:var(--card2)}
+.badge{font-size:11px;font-weight:500;padding:3px 9px;border-radius:99px;border:1px solid;cursor:default}
+.b-DC{background:var(--dc-bg);border-color:var(--dc-b);color:var(--dc-t)}
+.b-DA{background:var(--da-bg);border-color:var(--da-b);color:var(--da-t)}
+.b-DPC{background:var(--dpc-bg);border-color:var(--dpc-b);color:var(--dpc-t)}
+.b-DT{background:var(--dt-bg);border-color:var(--dt-b);color:var(--dt-t)}
+.b-AFO{background:var(--afo-bg);border-color:var(--afo-b);color:var(--afo-t)}
+.main{max-width:960px;margin:0 auto;padding:24px}
+.wcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden;transition:box-shadow .2s}
+.wcard:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.whead{display:flex;align-items:center;padding:13px 18px;cursor:pointer;gap:12px;user-select:none}
+.wnum{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--muted);min-width:52px}
+.wtitle{font-size:13.5px;font-weight:600;color:var(--text);flex:1}
+.wpw{display:flex;align-items:center;gap:8px;min-width:130px}
+.wbar{flex:1;height:4px;background:var(--border);border-radius:99px;overflow:hidden}
+.wbf{height:100%;border-radius:99px;background:linear-gradient(90deg,#7F77DD,#1D9E75);transition:width .3s}
+.wpct{font-family:var(--mono);font-size:11px;color:var(--muted);min-width:30px;text-align:right}
+.wchev{color:var(--faint);transition:transform .25s;font-size:14px}
+.wcard.open .wchev{transform:rotate(180deg)}
+.wbody{display:none;border-top:1px solid var(--border)}
+.wcard.open .wbody{display:block}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1px;background:var(--border)}
+.dcol{background:var(--card);padding:13px 13px 14px}
+.dcol.rest{background:var(--card2);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90px}
+.dname{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:9px}
+.dcol.rest .dname{margin-bottom:5px}
+.rlbl{font-size:11px;color:var(--faint);font-family:var(--mono)}
+.sgrp{margin-bottom:9px}
+.sgrp:last-child{margin-bottom:0}
+.stag{font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;border:1px solid;display:inline-block;margin-bottom:5px;letter-spacing:.3px}
+.t-DC{background:var(--dc-bg);border-color:var(--dc-b);color:var(--dc-t)}
+.t-DA{background:var(--da-bg);border-color:var(--da-b);color:var(--da-t)}
+.t-DPC{background:var(--dpc-bg);border-color:var(--dpc-b);color:var(--dpc-t)}
+.t-DT{background:var(--dt-bg);border-color:var(--dt-b);color:var(--dt-t)}
+.t-AFO{background:var(--afo-bg);border-color:var(--afo-b);color:var(--afo-t)}
+.aitem{display:flex;align-items:flex-start;gap:7px;margin-bottom:4px;cursor:pointer}
+.aitem:last-child{margin-bottom:0}
+.aitem input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:14px;height:14px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;margin-top:1px;cursor:pointer;background:var(--card);transition:all .15s;position:relative}
+.aitem input[type="checkbox"]:checked{background:#7F77DD;border-color:#7F77DD}
+.aitem input[type="checkbox"]:checked::after{content:'';position:absolute;left:2px;top:-1px;width:6px;height:9px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg)}
+.albl{font-size:11px;color:var(--text);line-height:1.45;flex:1;transition:color .15s}
+.aitem.done .albl{text-decoration:line-through;color:var(--faint)}
+.ahrs{font-family:var(--mono);font-size:10px;color:var(--faint);flex-shrink:0;margin-top:2px}
+.wfoot{display:flex;justify-content:space-between;align-items:center;padding:9px 18px;background:var(--card2);border-top:1px solid var(--border);font-size:11px;font-family:var(--mono);color:var(--muted)}
+.wfoot strong{color:var(--text)}
+.reset-btn{margin-top:28px;display:flex;justify-content:center}
+.reset-btn button{font-family:var(--font);font-size:12px;color:var(--muted);background:none;border:1px solid var(--border2);border-radius:var(--rs);padding:7px 18px;cursor:pointer;transition:all .15s}
+.reset-btn button:hover{color:var(--text);border-color:var(--text)}
+@media(max-width:600px){
+  .header{padding:18px 16px 14px}.main{padding:16px}.legend{padding:10px 16px}
+  .dgrid{grid-template-columns:repeat(2,1fr)}.stats{gap:12px}.sbox .num{font-size:18px}.wpw{min-width:100px}
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="hi">
+    <div class="ht">
+      <div class="tb">
+        <h1>Cronograma Procurador Municipal</h1>
+        <p>PGM Foz · FAFIPA · 8 semanas · assuntos do edital · começa no Domingo</p>
+      </div>
+      <div class="stats">
+        <div class="sbox"><div class="num" id="tot-checked">0</div><div class="lbl">atividades</div></div>
+        <div class="sbox"><div class="num" id="tot-hours">0h</div><div class="lbl">concluídas</div></div>
+      </div>
+    </div>
+    <div class="hbw">
+      <div class="bl"><span>Progresso geral</span><span id="overall-pct">0%</span></div>
+      <div class="pb"><div class="pf" id="overall-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+</header>
+<div class="legend">
+  <span class="badge b-DC">Dir. Constitucional</span>
+  <span class="badge b-DA">Dir. Administrativo</span>
+  <span class="badge b-DPC">Dir. Processual Civil</span>
+  <span class="badge b-DT">Dir. Tributário</span>
+  <span class="badge b-AFO">Direito Financeiro</span>
+</div>
+<main class="main" id="main"></main>
+<div class="reset-btn"><button onclick="resetAll()">↺ Reiniciar progresso</button></div>
+
+<script>
+function F(sub,topic){return{sub,acts:[{label:'Leitura: '+topic,h:1},{label:'Questões: '+topic,h:1}]};}
+function R(sub,topic){return{sub,acts:[{label:'Revisão: '+topic,h:0.5}]};}
+
+const WEEKS=[
+{title:'Fundamentos Constitucionais + Princípios Adm. + Tributos',days:[
+  {name:'Dom',rest:false,total:1,groups:[R('DC','Princípios fundamentais da CF/88'),R('DA','Princípios constitucionais e infraconstitucionais do DA')]},
+  {name:'Seg',rest:false,total:4,groups:[F('DC','Poder constituinte originário e derivado'),F('AFO','Princípios do Direito Financeiro')]},
+  {name:'Ter',rest:false,total:4,groups:[F('DA','Administração Pública: conceito, estrutura, poderes e deveres do administrador'),F('DT','Sistema constitucional tributário')]},
+  {name:'Qua',rest:false,total:4,groups:[F('DPC','Princípios constitucionais do processo. Normas fundamentais do CPC'),F('DC','Supremacia da CF. Controle de constitucionalidade: difuso e concentrado')]},
+  {name:'Qui',rest:false,total:4,groups:[F('DA','Administração Pública direta e indireta. Agências Reguladoras'),F('DPC','Da competência: absoluta, relativa, modificações e conflitos')]},
+  {name:'Sex',rest:false,total:4,groups:[F('DT','Princípios constitucionais tributários: legalidade, anterioridade, irretroatividade'),F('AFO','Orçamento público: princípios orçamentários')]},
+  {name:'Sáb',rest:true,total:0,groups:[]},
+]},
+{title:'Controle de Constitucionalidade + Ato Administrativo + LRF',days:[
+  {name:'Dom',rest:false,total:1,groups:[R('DC','ADI, ADC, ADPF, ADO — ação direta e controle concentrado'),R('DA','Controle da Administração Pública: administrativo, legislativo e judicial')]},
+  {name:'Seg',rest:false,total:4,groups:[F('DC','Inconstitucionalidade por omissão. ADO e mandado de injunção. Inconstitucionalidade face à CE'),F('AFO','Orçamento público: leis orçamentárias (PPA, LDO, LOA) e processo orçamentário')]},
+  {name:'Ter',rest:false,total:4,groups:[F('DA','Controle da Administração Pública: interno, externo, judicial — mandado de segurança e ação popular'),F('DT','Repartição constitucional de receitas tributárias: FPM, FPE e transferências')]},
+  {name:'Qua',rest:false,total:4,groups:[F('DPC','Das partes e dos procuradores: capacidade processual, legitimidade ad causam e substituição processual'),F('DC','Interpretação das normas constitucionais. Eficácia e aplicabilidade. Normas de eficácia plena, contida e limitada')]},
+  {name:'Qui',rest:false,total:4,groups:[F('DA','Ato administrativo: conceito, requisitos, atributos, classificação e espécies'),F('DPC','Da intervenção de terceiros: assistência, litisconsórcio, denunciação da lide, chamamento ao processo, desconsideração da personalidade jurídica e Amicus Curiae')]},
+  {name:'Sex',rest:false,total:4,groups:[F('DT','Conceito de tributo. Espécies tributárias e natureza jurídica específica'),F('AFO','Fiscalização orçamentária: controle interno, controle externo e Tribunais de Contas')]},
+  {name:'Sáb',rest:true,total:0,groups:[]},
+]},
+{title:'Federalismo + Poderes Adm. + Obrigação Tributária',days:[
+  {name:'Dom',rest:false,total:1,groups:[R('DC','O federalismo no Brasil. Soberania e autonomia. Intervenção federal nos Estados'),R('DA','Ato administrativo: discricionariedade, vinculação, invalidade, revogação e controle jurisdicional')]},
+  {name:'Seg',rest:false,total:4,groups:[F('DC','O federalismo no Brasil. Soberania e autonomia no Estado Federal. Intervenção federal nos Estados e nos Municípios'),F('AFO','Lei de Responsabilidade Fiscal (LRF — LC 101/2000): conceitos, metas fiscais e limites')]},
+  {name:'Ter',rest:false,total:4,groups:[F('DA','Poderes da administração: vinculado, discricionário, hierárquico, disciplinar, regulamentar e de polícia'),F('DT','Competência tributária. Imunidades tributárias: recíproca, religiosa, de partidos e entidades')]},
+  {name:'Qua',rest:false,total:4,groups:[F('DPC','Do Juiz e dos Auxiliares da Justiça: poderes, deveres, responsabilidade, impedimento e suspeição'),F('DC','Poder Legislativo Federal: estrutura, organização, funcionamento e atribuições. Estatuto dos Congressistas')]},
+  {name:'Qui',rest:false,total:4,groups:[F('DA','Bens públicos: regime jurídico, classificação, formas de utilização, concessão e autorização de uso, desafetação e alienação'),F('DPC','Dos Atos Processuais: forma, tempo e lugar. Prazos: espécies, contagem e preclusão')]},
+  {name:'Sex',rest:false,total:4,groups:[F('DT','Fontes do Direito Tributário: lei complementar, lei ordinária, tratados internacionais e normas complementares'),F('AFO','Receita pública: conceito, classificação e estágios')]},
+  {name:'Sáb',rest:true,total:0,groups:[]},
+]},
+{title:'Poder Legislativo/Executivo + Serviços Públicos + Crédito Tributário',days:[
+  {name:'Dom',rest:false,total:1,groups:[R('DC','Processo Legislativo. Medida Provisória. Sistema orçamentário constitucional'),R('DA','Desapropriação: conceito, modalidades, indenização e desapropriação indireta')]},
+  {name:'Seg',rest:false,total:4,groups:[F('DC','Processo Legislativo: iniciativa, emendas, votação, sanção, veto, promulgação e Medida Provisória'),F('AFO','Receita pública e aplicação da LRF: renúncia de receita, metas de arrecadação e limites')]},
+  {name:'Ter',rest:false,total:4,groups:[F('DA','Desapropriação: por utilidade pública, necessidade pública, interesse social, desapropriação indireta e limitações administrativas'),F('DT','Obrigação tributária: fato gerador, capacidade tributária ativa e passiva, sujeição passiva — contribuinte e responsável')]},
+  {name:'Qua',rest:false,total:4,groups:[F('DPC','Da comunicação dos atos processuais: citação (formas, efeitos e vícios) e intimação'),F('DC','Tribunal de Contas. Poder Executivo Federal: eleição, atribuições, crimes de responsabilidade, processo e julgamento')]},
+  {name:'Qui',rest:false,total:4,groups:[F('DA','Serviços públicos: conceito, classificação, regulamentação, concessão, permissão e PPP (Lei 11.079/2004)'),F('DPC','Da tutela provisória: tutela de urgência antecipada e cautelar, tutela de evidência — requisitos e procedimento')]},
+  {name:'Sex',rest:false,total:4,groups:[F('DT','Responsabilidade tributária: pessoal, dos sucessores e de terceiros. Substituição tributária. Denúncia espontânea'),F('AFO','Despesa pública: conceito, classificação, estágios e empenho')]},
+  {name:'Sáb',rest:true,total:0,groups:[]},
+]},
+{title:'Poder Judiciário + Agentes Públicos + Crédito Tributário',days:[
+  {name:'Dom',rest:false,total:1,groups:[R('DC','Poder Judiciário: organização, garantias e Súmula Vinculante'),R('DA','Processo Administrativo (Lei 9.784/99): princípios, fases e recursos')]},
+  {name:'Seg',rest:false,total:4,groups:[F('DC','Poder Judiciário: organização. Competência STF, STJ, TRFs e demais Tribunais. Súmula Vinculante. Repercussão Geral'),F('AFO','Despesa pública e LRF: limites de gastos com pessoal, medidas de ajuste e vedações')]},
+  {name:'Ter',rest:false,total:4,groups:[F('DA','Processo Administrativo: princípios, competência, impedimento, forma, tempo, lugar, notificação e recurso (Lei 9.784/99)'),F('DT','Crédito tributário: constituição, lançamento de ofício, por declaração e por homologação')]},
+  {name:'Qua',rest:false,total:4,groups:[F('DPC','Da formação, da suspensão e da extinção do processo: pressupostos e condições da ação'),F('DC','Poder Legislativo e Executivo estadual e municipal. Posição do Município na Federação. Regiões metropolitanas')]},
+  {name:'Qui',rest:false,total:4,groups:[F('DA','Agentes públicos: conceito e categorias. Cargo, emprego e função. Provimento, vacância, estabilidade e regime previdenciário'),F('DPC','Do procedimento comum: petição inicial, improcedência liminar do pedido, audiência de conciliação ou mediação')]},
+  {name:'Sex',rest:false,total:4,groups:[F('DT','Suspensão, extinção e exclusão do crédito tributário: modalidades, efeitos e diferenças'),F('AFO','Revisão: orçamento público (PPA, LDO, LOA) e Lei de Responsabilidade Fiscal')]},
+  {name:'Sáb',rest:true,total:0,groups:[]},
+]},
+{title:'Direitos Fundamentais + Responsabilidade do Estado + Adm. Tributária',days:[
+  {name:'Dom',rest:false,total:1,groups:[R('DC','Direitos e garantias fundamentais individuais, coletivos e sociais'),R('DA','Agentes públicos: responsabilidade civil, administrativa e criminal. PAD')]},
+  {name:'Seg',rest:false,total:4,groups:[F('DC','Direitos individuais e coletivos. Direitos sociais. Garantias constitucionais: igualdade, legalidade, direito adquirido, ato jurídico perfeito e coisa julgada'),F('AFO','Revisão: receita e despesa públicas. Dívida pública e operações de crédito')]},
+  {name:'Ter',rest:false,total:4,groups:[F('DA','Agentes públicos: responsabilidade civil, administrativa e criminal. Processo Administrativo Disciplinar (PAD). Regime previdenciário do servidor'),F('DT','Garantias e privilégios do crédito tributário. Administração tributária: fiscalização, sigilo e dívida ativa')]},
+  {name:'Qua',rest:false,total:4,groups:[F('DPC','Da contestação. Da reconvenção. Da revelia. Do julgamento conforme o estado do processo'),F('DC','Remédios constitucionais: habeas corpus, mandado de segurança (individual e coletivo), ação popular, habeas data, mandado de injunção e ação civil pública')]},
+  {name:'Qui',rest:false,total:4,groups:[F('DA','Responsabilidade extracontratual do Estado: objetiva, subjetiva por omissão, excludentes e responsabilidade pessoal do agente'),F('DPC','Das provas: espécies, ônus e inversão. Da sentença. Da coisa julgada. Da liquidação de sentença')]},
+  {name:'Sex',rest:false,total:4,groups:[F('DT','Certidões de regularidade fiscal. Processo administrativo tributário: impugnação, recursos e consulta fiscal'),F('AFO','Revisão geral: Direito Financeiro — princípios, sistema orçamentário e LRF')]},
+  {name:'Sáb',rest:true,total:0,groups:[]},
+]},
+{title:'Licitações + Cumprimento de Sentença + Processo Tributário',days:[
+  {name:'Dom',rest:false,total:1,groups:[R('DC','Funções essenciais à Justiça. Procurador Municipal. Ministério Público. Defensoria Pública'),R('DA','Licitações (Lei 14.133/2021): princípios, modalidades e critérios de julgamento')]},
+  {name:'Seg',rest:false,total:4,groups:[F('DC','Competência tributária da União, Estados e Municípios (CF). Limitações ao poder de tributar. Imunidades constitucionais'),F('AFO','Revisão geral: AFO — simulado com questões de concurso')]},
+  {name:'Ter',rest:false,total:4,groups:[F('DA','Licitações e contratos administrativos (Lei 14.133/2021): fases do processo licitatório, contratos, execução e nulidades'),F('DT','Processo judicial tributário: ação anulatória, repetição de indébito, ação de consignação em pagamento e mandado de segurança tributário')]},
+  {name:'Qua',rest:false,total:4,groups:[F('DPC','Do cumprimento de sentença: disposições gerais, cumprimento provisório e cumprimento contra a Fazenda Pública'),F('DC','Desapropriação (CF/88). Direito de propriedade. Política urbana, agrícola, fundiária e da reforma agrária')]},
+  {name:'Qui',rest:false,total:4,groups:[F('DA','Responsabilidade extracontratual do Estado: casos práticos. Improbidade administrativa (Lei 8.429/92 c/c Lei 14.230/2021)'),F('DPC','Procedimentos especiais: ações possessórias, embargos de terceiro, ação monitória e jurisdição voluntária')]},
+  {name:'Sex',rest:false,total:4,groups:[F('DT','Execução fiscal (Lei 6.830/80): embargos, redirecionamento e prescrição intercorrente. Medida cautelar fiscal'),F('AFO','Simulado final: questões AFO e Direito Financeiro')]},
+  {name:'Sáb',rest:true,total:0,groups:[]},
+]},
+{title:'Revisão Final + Improbidade + Tributos Municipais',days:[
+  {name:'Dom',rest:false,total:1,groups:[R('DC','Direito constitucional intertemporal. Recepção. Disposições transitórias. Jurisprudência STF/STJ'),R('DA','Improbidade administrativa: atos, sanções, prescrição e jurisprudência STJ')]},
+  {name:'Seg',rest:false,total:4,groups:[F('DC','Revisão DC: controle de constitucionalidade, direitos fundamentais, remédios constitucionais e Municípios'),F('AFO','Revisão final AFO: pontos críticos — LRF, orçamento, receita e despesa pública')]},
+  {name:'Ter',rest:false,total:4,groups:[F('DA','Revisão final DA: ato administrativo, poderes, bens públicos, licitações, responsabilidade e improbidade'),F('DT','Tributos municipais: ISS (LC 116/2003), IPTU e ITBI — fato gerador, base de cálculo e sujeito passivo')]},
+  {name:'Qua',rest:false,total:4,groups:[F('DPC','Do processo de execução: espécies, execução por quantia certa, execução contra a Fazenda Pública e embargos à execução'),F('DC','Revisão DC: federalismo, processo legislativo, Poder Judiciário e competência tributária')]},
+  {name:'Qui',rest:false,total:4,groups:[F('DA','Revisão final DA: serviços públicos, agentes públicos, processo administrativo e controle da Administração'),F('DPC','Recursos em geral. Ação rescisória. Incidente de resolução de demandas repetitivas (IRDR). Reclamação')]},
+  {name:'Sex',rest:false,total:4,groups:[F('DT','Revisão final DT: simulado — princípios, obrigação, crédito, processo e tributos municipais'),F('AFO','Revisão final integrada: pontos de maior incidência em concursos de Procurador Municipal')]},
+  {name:'Sáb',rest:true,total:0,groups:[]},
+]},
+];
+
+const STORAGE_KEY='cronograma_pgm_foz_v1';
+function loadState(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch{return{};}}
+function saveState(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}
+let state=loadState();
+function getKey(w,di,gi,ai){return`w${w}_d${di}_g${gi}_a${ai}`;}
+
+function countAll(){
+  let t=0,h=0;
+  WEEKS.forEach(wk=>wk.days.forEach(d=>{if(!d.rest)d.groups.forEach(g=>g.acts.forEach(a=>{t++;h+=a.h;}));}));
+  return{t,h};
+}
+
+function updateOverall(){
+  const{t,h}=countAll();
+  let done=0,doneH=0;
+  WEEKS.forEach((wk,wi)=>wk.days.forEach((d,di)=>{
+    if(!d.rest)d.groups.forEach((g,gi)=>g.acts.forEach((a,ai)=>{
+      if(state[getKey(wi+1,di,gi,ai)]){done++;doneH+=a.h;}
+    }));
+  }));
+  document.getElementById('tot-checked').textContent=done;
+  document.getElementById('tot-hours').textContent=(doneH%1===0?doneH:doneH.toFixed(1))+'h';
+  const pct=t>0?Math.round(done/t*100):0;
+  document.getElementById('overall-pct').textContent=pct+'%';
+  document.getElementById('overall-fill').style.width=pct+'%';
+}
+
+function updateWeek(w){
+  let t=0,done=0,doneH=0;
+  const wk=WEEKS[w-1];
+  wk.days.forEach((d,di)=>{if(!d.rest)d.groups.forEach((g,gi)=>g.acts.forEach((a,ai)=>{t++;if(state[getKey(w,di,gi,ai)]){done++;doneH+=a.h;}}));});
+  const pct=t>0?Math.round(done/t*100):0;
+  const fill=document.getElementById('wf-'+w);
+  const pctEl=document.getElementById('wp-'+w);
+  const foot=document.getElementById('wfoot-'+w);
+  if(fill)fill.style.width=pct+'%';
+  if(pctEl)pctEl.textContent=pct+'%';
+  const totalH=wk.days.reduce((s,d)=>s+d.total,0);
+  if(foot)foot.innerHTML=`<span><strong>${doneH%1===0?doneH:doneH.toFixed(1)}h</strong> de ${totalH}h concluídas</span><span>${done} / ${t} atividades</span>`;
+}
+
+function handleCheck(w,di,gi,ai,el){
+  const key=getKey(w,di,gi,ai);
+  state[key]=el.checked;
+  saveState(state);
+  el.closest('.aitem').classList.toggle('done',el.checked);
+  updateWeek(w);
+  updateOverall();
+}
+
+function buildApp(){
+  const main=document.getElementById('main');
+  main.innerHTML='';
+  WEEKS.forEach((wk,idx)=>{
+    const w=idx+1;
+    const card=document.createElement('div');
+    card.className='wcard';card.id='week-'+w;
+    const head=document.createElement('div');
+    head.className='whead';
+    head.innerHTML=`<span class="wnum">Semana ${w}</span><span class="wtitle">${wk.title}</span><div class="wpw"><div class="wbar"><div class="wbf" id="wf-${w}" style="width:0%"></div></div><span class="wpct" id="wp-${w}">0%</span></div><span class="wchev">▾</span>`;
+    head.addEventListener('click',()=>card.classList.toggle('open'));
+    card.appendChild(head);
+    const body=document.createElement('div');
+    body.className='wbody';
+    const grid=document.createElement('div');
+    grid.className='dgrid';
+    wk.days.forEach((d,di)=>{
+      const col=document.createElement('div');
+      col.className=d.rest?'dcol rest':'dcol';
+      if(d.rest){
+        col.innerHTML=`<div class="dname">${d.name}</div><div class="rlbl">Dia de descanso</div>`;
+      } else {
+        let html=`<div class="dname">${d.name}<span style="font-weight:400;font-family:var(--mono);font-size:9px;text-transform:none;letter-spacing:0;color:var(--faint);margin-left:3px">${d.total}h</span></div>`;
+        d.groups.forEach((g,gi)=>{
+          html+=`<div class="sgrp"><span class="stag t-${g.sub}">${g.sub}</span>`;
+          g.acts.forEach((a,ai)=>{
+            const key=getKey(w,di,gi,ai);
+            const chk=state[key]?'checked':'';
+            const dc=state[key]?' done':'';
+            html+=`<label class="aitem${dc}"><input type="checkbox" ${chk} onchange="handleCheck(${w},${di},${gi},${ai},this)"><span class="albl">${a.label}</span><span class="ahrs">${a.h}h</span></label>`;
+          });
+          html+=`</div>`;
+        });
+        col.innerHTML=html;
+      }
+      grid.appendChild(col);
+    });
+    body.appendChild(grid);
+    const foot=document.createElement('div');
+    foot.className='wfoot';foot.id='wfoot-'+w;
+    body.appendChild(foot);
+    card.appendChild(body);
+    main.appendChild(card);
+    updateWeek(w);
+  });
+  updateOverall();
+  let opened=false;
+  for(let w=1;w<=WEEKS.length;w++){
+    const pctEl=document.getElementById('wp-'+w);
+    if(!opened&&pctEl&&pctEl.textContent!=='100%'){
+      document.getElementById('week-'+w).classList.add('open');
+      opened=true;
+    }
+  }
+  if(!opened)document.getElementById('week-1').classList.add('open');
+}
+
+function resetAll(){
+  if(!confirm('Tem certeza? Todo o progresso será apagado.'))return;
+  state={};saveState(state);buildApp();
+}
+buildApp();
+</script>
+</body>
+</html>
